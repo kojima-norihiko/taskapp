@@ -29,14 +29,15 @@ class InputViewController: UIViewController ,TagListViewDelegate {
             let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
             self.view.addGestureRecognizer(tapGesture)
 
-        setView()
+            setView()
             texttitle.text = task.title
             naiyo.text = task.contents
             date.date = task.date
-        if(task.category != "" ){
-          tagListView.addTag(task.category)
-             }
-        
+            print(task.title)
+            print(task.category.title)
+        if(task.category.title != "" ){
+            tagListView.addTag(task.category.title)
+            }
         }
 
         @objc func dismissKeyboard(){
@@ -123,19 +124,19 @@ class InputViewController: UIViewController ,TagListViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        let TaskViewController:TaskViewController = segue.destination as! TaskViewController
+        let categoryViewController: CategoryViewController = segue.destination as! CategoryViewController
 
-            let title = self.task.category
-            TaskViewController.titlename = title
-            TaskViewController.task1 = task
+        let title = self.task.category.title
+            categoryViewController.titlename = title
+            categoryViewController.task1 = task
         }
     
     // 入力画面から戻ってきた時に TableView を更新させる
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
      tagListView.removeAllTags()
-        if(task.category != "" ){
-     tagListView.addTag(task.category)
+        if(task.category.title != "" ){
+            tagListView.addTag(task.category.title)
         }
         }
     

@@ -10,7 +10,7 @@ import UIKit
 import TagListView
 import RealmSwift
 
-class TaskViewController: UIViewController, TagListViewDelegate , UITextFieldDelegate {
+class CategoryViewController: UIViewController, TagListViewDelegate , UITextFieldDelegate {
     
     let MARGIN: CGFloat = 10
 
@@ -65,7 +65,7 @@ class TaskViewController: UIViewController, TagListViewDelegate , UITextFieldDel
 
             // テキストフィールドは適当にセット
             textField.delegate = self
-            textField.placeholder = "タグを入力してください"
+            textField.placeholder = "作成するcategoryを入力してください"
             textField.returnKeyType = UIReturnKeyType.done
 
             // レイアウト調整
@@ -106,14 +106,16 @@ class TaskViewController: UIViewController, TagListViewDelegate , UITextFieldDel
             sender.removeTagView(tagView)
             try! realm.write {
                 //let caAray = try! Realm().objects(Category.self)
-                var category2: Category!
+                var category2 : Category!
+                var category3 : Category!
+            
                 category2 = Category()
-                var category3 = try! Realm().objects(Category.self).filter( "title == %@", title )
-                category2 = category3[0]
+                category3 = Category()
+                category3 = try! Realm().objects(Category.self).filter( "title == %@", title )
                 
                 print(category2.title)
                 self.realm.delete(category2)
-                task1.category = ""
+                //task1.category = ""
             }
             updateLayout()
         }
@@ -127,7 +129,15 @@ class TaskViewController: UIViewController, TagListViewDelegate , UITextFieldDel
         sender.tagViews.forEach {$0.isSelected = false}
         tagView.isSelected = !tagView.isSelected
         try! realm.write {
-        task1.category = title
+            var category4: Category!
+            var category5: Category!
+            category4 = Category()
+            category5 = Category()
+            category5 = try! Realm().objects(Category.self).filter( "title == %@", title )
+            //category4 = category5
+            
+            print(category4.title)
+            //task1.category = category4
         }
     }
         

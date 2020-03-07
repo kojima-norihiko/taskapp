@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
-        searchBar.placeholder = "カテゴリーで検索します"
+        searchBar.placeholder = "categoryで検索します"
     }
      // MARK: - UISearchBar Delegate methods
 
@@ -50,9 +50,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchBarSearchButtonClicked(_ searchBar:UISearchBar) {
         print("検索ボタンがタップ scopeIndex=\(searchBar.selectedScopeButtonIndex)")
         if( searchBar.text == "" ) {
-                   taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true)
+            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true)
         }else{
-            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true).filter("category contains[cd] %@", searchBar.text!)
+            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true).filter("category.title contains[cd] %@", searchBar.text!)
         }
         tableView.reloadData()
     }
