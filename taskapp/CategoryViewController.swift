@@ -107,15 +107,13 @@ class CategoryViewController: UIViewController, TagListViewDelegate , UITextFiel
             try! realm.write {
                 //let caAray = try! Realm().objects(Category.self)
                 var category2 : Category!
-                var category3 : Category!
-            
                 category2 = Category()
-                category3 = Category()
-                category3 = try! Realm().objects(Category.self).filter( "title == %@", title )
+                let category3 = try! Realm().objects(Category.self).filter( "title == %@", title )
                 
+                category2 = category3[0]
                 print(category2.title)
                 self.realm.delete(category2)
-                //task1.category = ""
+                task1.category = nil
             }
             updateLayout()
         }
@@ -129,15 +127,13 @@ class CategoryViewController: UIViewController, TagListViewDelegate , UITextFiel
         sender.tagViews.forEach {$0.isSelected = false}
         tagView.isSelected = !tagView.isSelected
         try! realm.write {
-            var category4: Category!
-            var category5: Category!
+            var category4 : Category!
             category4 = Category()
-            category5 = Category()
-            category5 = try! Realm().objects(Category.self).filter( "title == %@", title )
-            //category4 = category5
+            let category5 = try! Realm().objects(Category.self).filter( "title == %@", title )
             
+            category4 = category5[0]
             print(category4.title)
-            //task1.category = category4
+            task1.category = category4
         }
     }
         

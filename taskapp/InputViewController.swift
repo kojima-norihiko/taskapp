@@ -30,14 +30,16 @@ class InputViewController: UIViewController ,TagListViewDelegate {
             self.view.addGestureRecognizer(tapGesture)
 
             setView()
+            var category1 : Category!
+            category1 = Category()
             texttitle.text = task.title
             naiyo.text = task.contents
             date.date = task.date
-            print(task.title)
-            print(task.category.title)
-        if(task.category.title != "" ){
-            tagListView.addTag(task.category.title)
-            }
+            category1 = task.category
+        
+        if(category1 != nil ){
+            tagListView.addTag(category1.title)
+             }
         }
 
         @objc func dismissKeyboard(){
@@ -126,7 +128,13 @@ class InputViewController: UIViewController ,TagListViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         let categoryViewController: CategoryViewController = segue.destination as! CategoryViewController
 
-        let title = self.task.category.title
+            var category2 :Category!
+            var title = ""
+            category2 = Category()
+            category2 = self.task.category
+        if(category2 != nil ){
+            title = category2.title
+        }
             categoryViewController.titlename = title
             categoryViewController.task1 = task
         }
@@ -135,8 +143,10 @@ class InputViewController: UIViewController ,TagListViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
      tagListView.removeAllTags()
-        if(task.category.title != "" ){
-            tagListView.addTag(task.category.title)
+        var category3 :Category!
+        category3 = self.task.category
+        if(category3 != nil ){
+            tagListView.addTag(category3.title)
         }
         }
     
