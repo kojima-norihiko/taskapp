@@ -24,13 +24,23 @@ class CategoryViewController: UIViewController, TagListViewDelegate , UITextFiel
         override func viewDidLoad() {
             super.viewDidLoad()
             self.setView()
+            var index = -1
+            var count = 0
             print(titlename)
             //Categoryに保存されている内容を全表示する。
             for ctg in caAray {
                 tagListView.addTag(ctg.title)
-                print(caAray)
+                if( ctg.title == titlename){
+                index = count
+                }
+                count = count + 1
             }
-                updateLayout()
+                print(caAray)
+            if index != -1 {
+            let tagView = tagListView.tagViews[index]
+            tagView.isSelected = true
+            }
+            updateLayout()
         }
     
         func setView() {
