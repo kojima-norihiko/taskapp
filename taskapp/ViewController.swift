@@ -97,7 +97,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // --- ここから ---
         if editingStyle == .delete {
             // 削除するタスクを取得する
-            
             let task = self.taskArray[indexPath.row]
 
             // ローカル通知をキャンセルする
